@@ -254,6 +254,85 @@ const topics: WikiTopic[] = [
     ),
   },
 ];
+import anime from "animejs";
+import { useEffect, useRef } from "react";
+
+// Componente individual para cada tópico de la Wiki
+const WikiAccordionItem = ({
+  topic,
+  isOpen,
+  toggle,
+  index
+}: {
+  topic: WikiTopic,
+  isOpen: boolean,
+  toggle: () => void,
+  index: number
+}) => {
+  const Icon = topic.icon;
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (isOpen && contentRef.current) {
+      // Seleccionamos los elementos de texto clave dentro del contenido
+      // para animarlos en cascada
+      const targets = contentRef.current.querySelectorAll(
+        "p, h4, li, .gradient-primary-soft, .border, .bg-accent"
+      );
+
+      // Reseteamos el estado inicial de la animación
+      anime.set(targets, { opacity: 0, translateY: 15 });
+
+      // Disparamos la animación en cascada (stagger) para dar el efecto
+      // de que el contenido va apareciendo a medida que se despliega
+      anime({
+        targets,
+        opacity: [0, 1],
+        translateY: [15, 0],
+        delay: anime.stagger(40, { start: 150 }), // Pequeño retraso para que el acordeón empiece a abrirse
+        easing: "easeOutCubic",
+        duration: 400
+      });
+    }
+  }, [isOpen]);
+
+  return (
+    <div
+      className={`reveal reveal-delay-${(index % 4) + 1} rounded-xl border border-border bg-card overflow-hidden transition-[box-shadow,border-color] duration-300 ${isOpen ? "shadow-brand border-primary/50" : ""}`}
+    >
+      <button
+        onClick={toggle}
+        className="w-full flex items-center gap-4 p-6 text-left hover:bg-muted/50 transition-colors"
+        aria-expanded={isOpen}
+      >
+        <div className="h-12 w-12 rounded-lg gradient-primary flex items-center justify-center shrink-0">
+          <Icon className="h-6 w-6 text-primary-foreground" />
+        </div>
+        <div className="flex-1 min-w-0">
+          <h3 className="font-display text-lg font-semibold text-foreground">{topic.title}</h3>
+          <p className="text-sm text-muted-foreground mt-0.5 truncate">{topic.intro}</p>
+        </div>
+        <ChevronDown
+          className={`h-5 w-5 shrink-0 transition-transform duration-300 ${isOpen ? 'text-primary rotate-180' : 'text-muted-foreground'}`}
+        />
+      </button>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateRows: isOpen ? "1fr" : "0fr",
+          opacity: isOpen ? 1 : 0,
+          transition: "grid-template-rows 400ms cubic-bezier(0.4, 0, 0.2, 1), opacity 300ms ease",
+        }}
+      >
+        <div style={{ overflow: "hidden" }}>
+          <div ref={contentRef} className="px-6 pb-6 pt-2 border-t border-border">
+            {topic.content}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const WikiSection = () => {
   const [openTopic, setOpenTopic] = useState<string | null>(null);
@@ -279,47 +358,15 @@ const WikiSection = () => {
 
         {/* Topics */}
         <div className="max-w-4xl mx-auto space-y-4">
-          {topics.map((topic, i) => {
-            const isOpen = openTopic === topic.id;
-            const Icon = topic.icon;
-            return (
-              <div
-                key={topic.id}
-                className={`reveal reveal-delay-${(i % 4) + 1} rounded-xl border border-border bg-card overflow-hidden transition-shadow duration-300 ${isOpen ? "shadow-brand" : ""}`}
-              >
-                <button
-                  onClick={() => toggle(topic.id)}
-                  className="w-full flex items-center gap-4 p-6 text-left hover:bg-muted/50 transition-colors"
-                  aria-expanded={isOpen}
-                >
-                  <div className="h-12 w-12 rounded-lg gradient-primary flex items-center justify-center shrink-0">
-                    <Icon className="h-6 w-6 text-primary-foreground" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <h3 className="font-display text-lg font-semibold text-foreground">{topic.title}</h3>
-                    <p className="text-sm text-muted-foreground mt-0.5 truncate">{topic.intro}</p>
-                  </div>
-                  <ChevronDown
-                    className={`h-5 w-5 shrink-0 transition-transform duration-300 ${isOpen ? 'text-primary rotate-180' : 'text-muted-foreground'}`}
-                  />
-                </button>
-                <div
-                  style={{
-                    display: "grid",
-                    gridTemplateRows: isOpen ? "1fr" : "0fr",
-                    opacity: isOpen ? 1 : 0,
-                    transition: "grid-template-rows 350ms ease, opacity 300ms ease",
-                  }}
-                >
-                  <div style={{ overflow: "hidden" }}>
-                    <div className="px-6 pb-6 pt-2 border-t border-border">
-                      {topic.content}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
+          {topics.map((topic, i) => (
+            <WikiAccordionItem
+              key={topic.id}
+              topic={topic}
+              index={i}
+              isOpen={openTopic === topic.id}
+              toggle={() => toggle(topic.id)}
+            />
+          ))}
         </div>
 
         {/* Resources */}
