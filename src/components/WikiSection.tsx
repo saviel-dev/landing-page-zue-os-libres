@@ -3,6 +3,9 @@ import { BookOpen, Brain, Moon, Leaf, AlertTriangle, Smartphone, Baby, ChevronDo
 import anime from "animejs";
 import insomioImg from "../assets/wiki media/Insomio.png";
 import combatirInsomioImg from "../assets/wiki media/combatir insomio.png";
+import insomioEstresImg from "../assets/wiki media/insomio por estres.png";
+import appsSuenoImg from "../assets/wiki media/apps para el sueño.png";
+import insomioEdadImg from "../assets/wiki media/insomio segun la edad.png";
 
 interface WikiTopic {
   id: string;
@@ -105,6 +108,13 @@ const topics: WikiTopic[] = [
     intro: "Cómo el estrés y las experiencias traumáticas afectan al sueño, y tratamientos especializados.",
     content: (
       <>
+        <div className="mb-5 rounded-xl overflow-hidden">
+          <img
+            src={insomioEstresImg}
+            alt="Insomnio por estrés y trauma"
+            className="w-full h-52 object-cover"
+          />
+        </div>
         <h4 className="font-display text-lg font-semibold text-foreground mb-3">Insomnio por Estrés</h4>
         <p className="mb-4 text-muted-foreground leading-relaxed">
           Ocurre cuando preocupaciones (trabajo, familia, salud) activan la mente de noche, impidiendo el descanso. Suele ser un insomnio agudo que desaparece al resolverse el conflicto. Sin embargo, si se prolonga más de tres semanas puede volverse crónico y derivar en ansiedad o depresión.
@@ -150,6 +160,13 @@ const topics: WikiTopic[] = [
     intro: "Herramientas digitales que combinan meditación, sonidos relajantes y monitoreo del sueño.",
     content: (
       <>
+        <div className="mb-5 rounded-xl overflow-hidden">
+          <img
+            src={appsSuenoImg}
+            alt="Apps y tecnología para el sueño"
+            className="w-full h-52 object-cover"
+          />
+        </div>
         <h4 className="font-display text-lg font-semibold text-foreground mb-3">Apps de Relajación y Meditación</h4>
         <div className="space-y-3 mb-6">
           {[
@@ -232,6 +249,13 @@ const topics: WikiTopic[] = [
     intro: "Cómo afecta el insomnio en cada etapa de la vida, desde la infancia hasta la vejez.",
     content: (
       <>
+        <div className="mb-5 rounded-xl overflow-hidden">
+          <img
+            src={insomioEdadImg}
+            alt="El insomnio según la edad"
+            className="w-full h-52 object-cover"
+          />
+        </div>
         <p className="mb-4 text-muted-foreground leading-relaxed">
           El insomnio puede comenzar a cualquier edad, pero su prevalencia y características varían significativamente según la etapa de la vida.
         </p>
@@ -393,28 +417,45 @@ const WikiSection = () => {
         </div>
 
         {/* Resources */}
-        <div className="max-w-4xl mx-auto mt-12 reveal">
-          <div className="p-6 rounded-xl gradient-primary-soft border border-border">
-            <h3 className="font-display text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
-              <BookOpen className="h-5 w-5 text-primary" />
-              Recursos y Referencias
-            </h3>
-            <div className="grid sm:grid-cols-2 gap-3">
+        <div className="max-w-4xl mx-auto mt-16 relative">
+          <div className="absolute inset-0 bg-primary/5 blur-3xl rounded-full" />
+          <div className="relative p-8 rounded-2xl bg-card/80 backdrop-blur-sm border border-primary/20 shadow-xl shadow-primary/5 transition-all duration-300 hover:shadow-primary/10 hover:border-primary/30">
+            <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+              <div className="flex items-center gap-4">
+                <div className="h-12 w-12 rounded-xl gradient-primary flex items-center justify-center shrink-0 shadow-lg shadow-primary/20">
+                  <BookOpen className="h-6 w-6 text-primary-foreground" />
+                </div>
+                <div>
+                  <h3 className="font-display text-2xl font-bold text-foreground">
+                    Recursos Científicos
+                  </h3>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    Fuentes y literatura médica consultada
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="grid sm:grid-cols-2 gap-4">
               {[
-                { label: "MedlinePlus — Insomnio", url: "https://medlineplus.gov/spanish/insomnia.html" },
-                { label: "MedlinePlus — Higiene del Sueño", url: "https://medlineplus.gov/spanish/ency/patientinstructions/000853.htm" },
-                { label: "Healthline — Remedios Naturales", url: "https://www.healthline.com/health/es/remedios-naturales-para-dormir" },
-                { label: "ScienceDirect — Insomnio y Trauma", url: "https://www.sciencedirect.com/science/article/abs/pii/S108707922030126X" },
+                { label: "MedlinePlus", sub: "Insomnio general", url: "https://medlineplus.gov/spanish/insomnia.html" },
+                { label: "MedlinePlus", sub: "Higiene del Sueño", url: "https://medlineplus.gov/spanish/ency/patientinstructions/000853.htm" },
+                { label: "Healthline", sub: "Remedios Naturales", url: "https://www.healthline.com/health/es/remedios-naturales-para-dormir" },
+                { label: "ScienceDirect", sub: "Insomnio y Trauma", url: "https://www.sciencedirect.com/science/article/abs/pii/S108707922030126X" },
               ].map((r) => (
                 <a
                   key={r.url}
                   href={r.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-sm text-primary hover:underline"
+                  className="group flex flex-col p-4 rounded-xl border border-border bg-background/50 hover:bg-primary/5 hover:border-primary/30 transition-all duration-300 relative overflow-hidden"
                 >
-                  <ExternalLink className="h-3.5 w-3.5 shrink-0" />
-                  {r.label}
+                  <div className="absolute right-0 top-0 w-16 h-16 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-bl-3xl" />
+                  <div className="flex items-center justify-between mb-1 relative z-10">
+                    <span className="font-semibold text-foreground text-sm group-hover:text-primary transition-colors">{r.label}</span>
+                    <ExternalLink className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                  </div>
+                  <span className="text-sm text-muted-foreground relative z-10">{r.sub}</span>
                 </a>
               ))}
             </div>
