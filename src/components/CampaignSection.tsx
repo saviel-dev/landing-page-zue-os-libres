@@ -68,14 +68,13 @@ const CampaignSection = () => {
   return (
     <section id="campana" className="py-24 bg-background">
       <div className="container mx-auto px-4">
-        {/* Benefits bar */}
         <div className="reveal grid grid-cols-2 md:grid-cols-4 gap-6 mb-20">
           {benefits.map((b, i) => (
             <div
               key={b.title}
-              className={`reveal-delay-${i + 1} flex flex-col items-center text-center p-8 rounded-xl gradient-primary-soft`}
+              className={`group reveal-delay-${i + 1} flex flex-col items-center text-center p-8 rounded-xl gradient-primary-soft border border-transparent transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:shadow-primary/10 hover:border-primary/20 cursor-pointer`}
             >
-              <b.icon className="h-10 w-10 text-primary mb-4" />
+              <b.icon className="h-10 w-10 text-primary mb-4 transition-transform duration-300 group-hover:scale-110 group-hover:-translate-y-1" />
               <h3 className="font-semibold text-foreground text-lg mb-2">{b.title}</h3>
               <p className="text-muted-foreground text-sm leading-relaxed">{b.desc}</p>
             </div>

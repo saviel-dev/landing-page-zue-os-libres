@@ -52,6 +52,10 @@
     @apply border-border;
   }
 
+  ::selection {
+    @apply bg-primary text-primary-foreground;
+  }
+
   body {
     @apply bg-background text-foreground font-sans;
     font-family: 'Open Sans', sans-serif;

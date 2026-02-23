@@ -47,7 +47,7 @@ export default function ContactSection() {
   const [loading, setLoading] = useState(false);
   const btnRef = useRef<HTMLButtonElement>(null);
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setErrors({});
     const result = contactSchema.safeParse(form);
@@ -58,12 +58,24 @@ export default function ContactSection() {
       return;
     }
     setLoading(true);
-    setTimeout(() => {
+    try {
+      const response = await fetch("https://formspree.io/f/mreaoeew", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify({ name: form.name, email: form.email, message: form.message }),
+      });
+      if (response.ok) {
+        setSent(true);
+        toast.success("¡Mensaje enviado con éxito!");
+        setTimeout(() => { setSent(false); setForm({ name: "", email: "", message: "" }); }, 3000);
+      } else {
+        toast.error("Hubo un error al enviar el mensaje. Inténtalo de nuevo.");
+      }
+    } catch {
+      toast.error("Error de red. Verifica tu conexión e inténtalo de nuevo.");
+    } finally {
       setLoading(false);
-      setSent(true);
-      toast.success("¡Mensaje enviado con éxito!");
-      setTimeout(() => { setSent(false); setForm({ name: "", email: "", message: "" }); }, 3000);
-    }, 1200);
+    }
   };
 
   const ripple = (e: React.MouseEvent<HTMLButtonElement>) => {

@@ -4,8 +4,8 @@ import logo from "../imgs/logo.png";
 
 const navLinks = [
   { href: "#inicio", label: "Inicio" },
-  { href: "#campana", label: "Campaña" },
   { href: "#wiki", label: "Wiki" },
+  { href: "#campana", label: "Campaña" },
   { href: "#foro", label: "Foro" },
   { href: "#contacto", label: "Contacto" },
 ];
@@ -23,8 +23,8 @@ const Navbar = () => {
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
-          ? "gradient-primary shadow-brand py-3"
-          : "bg-transparent py-5"
+        ? "gradient-primary shadow-brand py-3"
+        : "bg-transparent py-5"
         }`}
     >
       <div className="container mx-auto flex items-center justify-between px-4">

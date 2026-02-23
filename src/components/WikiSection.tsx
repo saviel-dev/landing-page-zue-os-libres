@@ -1,5 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { BookOpen, Brain, Moon, Leaf, AlertTriangle, Smartphone, Baby, ChevronDown, ExternalLink } from "lucide-react";
+import anime from "animejs";
+import insomioImg from "../assets/wiki media/Insomio.png";
+import combatirInsomioImg from "../assets/wiki media/combatir insomio.png";
 
 interface WikiTopic {
   id: string;
@@ -7,6 +10,7 @@ interface WikiTopic {
   title: string;
   intro: string;
   content: React.ReactNode;
+  image?: string;
 }
 
 const topics: WikiTopic[] = [
@@ -15,6 +19,7 @@ const topics: WikiTopic[] = [
     icon: Moon,
     title: "¿Qué es el Insomnio?",
     intro: "Trastorno del sueño que afecta a millones de personas, dificultando conciliar o mantener el sueño.",
+    image: insomioImg,
     content: (
       <>
         <p className="mb-4 text-muted-foreground leading-relaxed">
@@ -67,6 +72,7 @@ const topics: WikiTopic[] = [
     icon: Brain,
     title: "Estrategias para Combatir el Insomnio",
     intro: "Técnicas y hábitos respaldados por la ciencia para mejorar la calidad de tu descanso.",
+    image: combatirInsomioImg,
     content: (
       <>
         <p className="mb-4 text-muted-foreground leading-relaxed">
@@ -138,46 +144,6 @@ const topics: WikiTopic[] = [
     ),
   },
   {
-    id: "plantas",
-    icon: Leaf,
-    title: "Plantas Medicinales para Dormir",
-    intro: "Remedios naturales con eficacia comprobada para mejorar la calidad del sueño.",
-    content: (
-      <>
-        <p className="mb-4 text-muted-foreground leading-relaxed">
-          Las plantas medicinales han sido utilizadas durante siglos para tratar problemas de sueño. Se consumen generalmente en infusiones 30-60 minutos antes de dormir, ayudando a calmar la mente y reducir la tensión muscular.
-        </p>
-        <div className="space-y-4 mb-6">
-          {[
-            { name: "Raíz de Valeriana", latin: "Valeriana officinalis", desc: "Considerada uno de los mejores remedios para el insomnio. Contiene ácido valerénico que actúa sobre los receptores GABA del cerebro, produciendo un efecto sedante natural. Reduce el tiempo para conciliar el sueño hasta en un 40%." },
-            { name: "Pasiflora", latin: "Passiflora incarnata", desc: "Ideal para personas con 'pensamientos acelerados' que no pueden calmar su mente por la noche. Aumenta los niveles de GABA, reduciendo significativamente los despertares nocturnos." },
-            { name: "Manzanilla", latin: "Matricaria chamomilla", desc: "Una ayuda suave y efectiva. Contiene apigenina, un flavonoide que se une a los receptores de benzodiacepinas del cerebro, produciendo relajación. Su efecto calmante está comprobado en estudios clínicos." },
-            { name: "Melisa o Toronjil", latin: "Melissa officinalis", desc: "Planta relajante que equilibra el sistema nervioso. Especialmente efectiva para el insomnio asociado al estrés leve o moderado. Actúa en aproximadamente 20 minutos." },
-            { name: "Amapola de California", latin: "Eschscholzia californica", desc: "Ayuda a regular el ciclo del sueño (ritmo circadiano) y mejora la conciliación de forma natural, sin efectos secundarios significativos." },
-            { name: "Lavanda", latin: "Lavandula", desc: "Versátil: puede usarse en aromaterapia (aceite esencial) o como infusión. El linalool de la lavanda reduce los niveles de cortisol y la frecuencia cardíaca, facilitando la relajación." },
-            { name: "Lúpulo", latin: "Humulus lupulus", desc: "Contiene 2-metil-3-buten-2-ol, un compuesto con efectos sedantes. Se utiliza frecuentemente en combinación con valeriana para potenciar sus efectos." },
-          ].map((p, i) => (
-            <div key={i} className="p-4 rounded-lg border border-border">
-              <div className="flex items-baseline gap-2 mb-1">
-                <h5 className="font-semibold text-foreground">{p.name}</h5>
-                <span className="text-xs italic text-muted-foreground">({p.latin})</span>
-              </div>
-              <p className="text-sm text-muted-foreground">{p.desc}</p>
-            </div>
-          ))}
-        </div>
-        <div className="p-4 rounded-lg bg-accent">
-          <h5 className="font-semibold text-accent-foreground mb-2">⚠️ Recomendaciones de uso</h5>
-          <ul className="space-y-1 text-sm text-muted-foreground">
-            <li>• Tomar infusiones entre 30-60 minutos antes de dormir.</li>
-            <li>• La melatonina y el magnesio son suplementos naturales complementarios.</li>
-            <li>• Consultar a un médico antes de combinar con otros medicamentos.</li>
-          </ul>
-        </div>
-      </>
-    ),
-  },
-  {
     id: "apps",
     icon: Smartphone,
     title: "Apps y Tecnología para el Sueño",
@@ -220,6 +186,46 @@ const topics: WikiTopic[] = [
     ),
   },
   {
+    id: "plantas",
+    icon: Leaf,
+    title: "Plantas Medicinales para Dormir",
+    intro: "Remedios naturales con eficacia comprobada para mejorar la calidad del sueño.",
+    content: (
+      <>
+        <p className="mb-4 text-muted-foreground leading-relaxed">
+          Las plantas medicinales han sido utilizadas durante siglos para tratar problemas de sueño. Se consumen generalmente en infusiones 30-60 minutos antes de dormir, ayudando a calmar la mente y reducir la tensión muscular.
+        </p>
+        <div className="space-y-4 mb-6">
+          {[
+            { name: "Raíz de Valeriana", latin: "Valeriana officinalis", desc: "Considerada uno de los mejores remedios para el insomnio. Contiene ácido valerénico que actúa sobre los receptores GABA del cerebro, produciendo un efecto sedante natural. Reduce el tiempo para conciliar el sueño hasta en un 40%." },
+            { name: "Pasiflora", latin: "Passiflora incarnata", desc: "Ideal para personas con 'pensamientos acelerados' que no pueden calmar su mente por la noche. Aumenta los niveles de GABA, reduciendo significativamente los despertares nocturnos." },
+            { name: "Manzanilla", latin: "Matricaria chamomilla", desc: "Una ayuda suave y efectiva. Contiene apigenina, un flavonoide que se une a los receptores de benzodiacepinas del cerebro, produciendo relajación. Su efecto calmante está comprobado en estudios clínicos." },
+            { name: "Melisa o Toronjil", latin: "Melissa officinalis", desc: "Planta relajante que equilibra el sistema nervioso. Especialmente efectiva para el insomnio asociado al estrés leve o moderado. Actúa en aproximadamente 20 minutos." },
+            { name: "Amapola de California", latin: "Eschscholzia californica", desc: "Ayuda a regular el ciclo del sueño (ritmo circadiano) y mejora la conciliación de forma natural, sin efectos secundarios significativos." },
+            { name: "Lavanda", latin: "Lavandula", desc: "Versátil: puede usarse en aromaterapia (aceite esencial) o como infusión. El linalool de la lavanda reduce los niveles de cortisol y la frecuencia cardíaca, facilitando la relajación." },
+            { name: "Lúpulo", latin: "Humulus lupulus", desc: "Contiene 2-metil-3-buten-2-ol, un compuesto con efectos sedantes. Se utiliza frecuentemente en combinación con valeriana para potenciar sus efectos." },
+          ].map((p, i) => (
+            <div key={i} className="p-4 rounded-lg border border-border">
+              <div className="flex items-baseline gap-2 mb-1">
+                <h5 className="font-semibold text-foreground">{p.name}</h5>
+                <span className="text-xs italic text-muted-foreground">({p.latin})</span>
+              </div>
+              <p className="text-sm text-muted-foreground">{p.desc}</p>
+            </div>
+          ))}
+        </div>
+        <div className="p-4 rounded-lg bg-accent">
+          <h5 className="font-semibold text-accent-foreground mb-2">⚠️ Recomendaciones de uso</h5>
+          <ul className="space-y-1 text-sm text-muted-foreground">
+            <li>• Tomar infusiones entre 30-60 minutos antes de dormir.</li>
+            <li>• La melatonina y el magnesio son suplementos naturales complementarios.</li>
+            <li>• Consultar a un médico antes de combinar con otros medicamentos.</li>
+          </ul>
+        </div>
+      </>
+    ),
+  },
+  {
     id: "edades",
     icon: Baby,
     title: "El Insomnio Según la Edad",
@@ -254,8 +260,7 @@ const topics: WikiTopic[] = [
     ),
   },
 ];
-import anime from "animejs";
-import { useEffect, useRef } from "react";
+
 
 // Componente individual para cada tópico de la Wiki
 const WikiAccordionItem = ({
@@ -298,8 +303,18 @@ const WikiAccordionItem = ({
 
   return (
     <div
-      className={`reveal reveal-delay-${(index % 4) + 1} rounded-xl border border-border bg-card overflow-hidden transition-[box-shadow,border-color] duration-300 ${isOpen ? "shadow-brand border-primary/50" : ""}`}
+      className={`rounded-xl border border-border bg-card overflow-hidden transition-[box-shadow,border-color] duration-300 ${isOpen ? "shadow-brand border-primary/50" : ""}`}
     >
+      {/* Image outside the accordion, always visible */}
+      {topic.image && (
+        <div className="w-full overflow-hidden">
+          <img
+            src={topic.image}
+            alt={topic.title}
+            className="w-full h-80 object-cover"
+          />
+        </div>
+      )}
       <button
         onClick={toggle}
         className="w-full flex items-center gap-4 p-6 text-left hover:bg-muted/50 transition-colors"
@@ -357,15 +372,23 @@ const WikiSection = () => {
         </div>
 
         {/* Topics */}
-        <div className="max-w-4xl mx-auto space-y-4">
+        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
           {topics.map((topic, i) => (
-            <WikiAccordionItem
+            <div
               key={topic.id}
-              topic={topic}
-              index={i}
-              isOpen={openTopic === topic.id}
-              toggle={() => toggle(topic.id)}
-            />
+              className={
+                topic.id === "insomnio" || topic.id === "estrategias"
+                  ? "md:col-span-2"
+                  : ""
+              }
+            >
+              <WikiAccordionItem
+                topic={topic}
+                index={i}
+                isOpen={openTopic === topic.id}
+                toggle={() => toggle(topic.id)}
+              />
+            </div>
           ))}
         </div>
 
