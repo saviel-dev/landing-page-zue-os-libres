@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { BookOpen, Brain, Moon, Leaf, AlertTriangle, Smartphone, Baby, ChevronDown, ExternalLink } from "lucide-react";
+import { BookOpen, Brain, Moon, Leaf, AlertTriangle, Smartphone, Baby, ChevronDown, ExternalLink, Zap, Coffee, PenLine, Award, Music2, Lightbulb, PhoneOff, Headphones, Wind, Ban, MonitorX, Clock, ArrowRight } from "lucide-react";
 import anime from "animejs";
 import insomioImg from "../assets/wiki media/Insomio.png";
 import combatirInsomioImg from "../assets/wiki media/combatir insomio.png";
@@ -97,6 +97,196 @@ const topics: WikiTopic[] = [
               <p className="text-sm text-muted-foreground">{s.desc}</p>
             </div>
           ))}
+        </div>
+      </>
+    ),
+  },
+  // ─── NUEVA SECCIÓN: Condicionamiento Operante ───
+  {
+    id: "condicionamiento",
+    icon: Zap,
+    title: "Condicionamiento Operante y Hábitos Naturales del Sueño",
+    intro: "Cómo el reforzamiento positivo, negativo y el castigo moderado te ayudan a construir rutinas de descanso basadas en plantas y hábitos saludables.",
+    content: (
+      <>
+        {/* ─ Intro ─ */}
+        <p className="mb-4 text-muted-foreground leading-relaxed">
+          El <strong className="text-foreground">condicionamiento operante</strong>, desarrollado por el psicólogo B. F. Skinner, explica cómo las consecuencias de nuestras acciones moldean nuestra conducta futura. Aplicado al sueño, este marco nos permite diseñar rutinas nocturnas con mayor intención: potenciar los hábitos que favorecen el descanso y reducir, de forma suave, los que lo sabotean. Lo mejor es que encaja de forma natural con las terapias a base de plantas, las rutinas de relajación y el bienestar integral que promueve Zueños Libres.
+        </p>
+        <p className="mb-8 text-muted-foreground leading-relaxed">
+          A diferencia de los enfoques puramente farmacológicos, combinar <em>reforzamiento insomnio natural</em> con hierbas como valeriana, pasiflora o manzanilla crea un ciclo poderoso: la mente asocia progresivamente la rutina nocturna con calma y sueño, haciendo que cada noche sea más fácil que la anterior.
+        </p>
+
+        {/* ─ Reforzamiento Positivo ─ */}
+        <div className="flex items-center gap-3 mb-4">
+          <div className="h-9 w-9 rounded-xl gradient-primary flex items-center justify-center shrink-0 shadow-md shadow-primary/20">
+            <span className="text-primary-foreground font-bold text-base leading-none">+</span>
+          </div>
+          <h4 className="font-display text-lg font-semibold text-foreground">Reforzamiento Positivo</h4>
+          <div className="flex-1 h-px bg-primary/20" />
+        </div>
+        <p className="mb-5 text-muted-foreground leading-relaxed">
+          El <strong className="text-foreground">reforzamiento positivo</strong> consiste en añadir una consecuencia agradable después de una conducta deseada, aumentando las probabilidades de que esa conducta se repita. Cuando conectas algo que te gusta (el aroma de la manzanilla, la calidez de una taza de valeriana) con el momento de prepararte para dormir, tu cerebro empieza a anticipar el descanso con placer en lugar de estrés.
+        </p>
+        <div className="grid sm:grid-cols-2 gap-3 mb-5">
+          {([
+            { Icon: Coffee, color: "text-emerald-600 dark:text-emerald-400", bg: "bg-emerald-500/10", title: "Ritual de infusión nocturna", desc: "Prepara manzanilla o melisa 30 min antes de acostarte. El olor y el calor actúan como señal sensorial que le indica al cerebro que es hora de relajarse. La repetición fortalece la asociación y reduce el tiempo para conciliar el sueño." },
+            { Icon: PenLine, color: "text-violet-600 dark:text-violet-400", bg: "bg-violet-500/10", title: "Diario de gratitud + valeriana", desc: "Escribe 3 cosas positivas del día mientras tomas tu infusión de valeriana. El estado emocional positivo combinado con el efecto sedante de la planta refuerza ambas conductas simultáneamente." },
+            { Icon: Award, color: "text-primary", bg: "bg-primary/10", title: "Pasiflora como recompensa de rutina", desc: "Reserva la pasiflora para los días en que completas toda tu rutina: estiramientos, apagar pantallas y lectura. La asocias con el 'premio' al esfuerzo, motivando mantener la rutina completa." },
+            { Icon: Music2, color: "text-sky-600 dark:text-sky-400", bg: "bg-sky-500/10", title: "Playlist + aromaterapia de lavanda", desc: "Pon siempre la misma playlist junto con difusor de lavanda. Tu cerebro aprende a conectar esa combinación sensorial con el inicio del sueño — un ancla poderosa para hábitos de sueño positivos." },
+          ] as const).map(({ Icon, color, bg, title, desc }, i) => (
+            <div key={i} className="flex gap-3 p-4 rounded-xl border border-border bg-card hover:border-primary/30 hover:shadow-sm transition-all duration-200 items-start">
+              <div className={`h-9 w-9 rounded-lg ${bg} flex items-center justify-center shrink-0`}>
+                <Icon className={`h-5 w-5 ${color}`} />
+              </div>
+              <div>
+                <h5 className="font-semibold text-foreground text-sm mb-1">{title}</h5>
+                <p className="text-xs text-muted-foreground leading-relaxed">{desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Perfiles */}
+        <div className="mb-8 p-5 rounded-xl bg-accent border border-border">
+          <div className="flex items-center gap-2 mb-4">
+            <div className="h-7 w-7 rounded-lg bg-primary/15 flex items-center justify-center">
+              <Lightbulb className="h-4 w-4 text-primary" />
+            </div>
+            <h5 className="font-semibold text-accent-foreground">Variantes por perfil de usuario</h5>
+          </div>
+          <div className="space-y-3">
+            {[
+              { label: "Estrés laboral", tip: "Valeriana + 10 min de journaling al finalizar la jornada. Crea un límite simbólico entre el trabajo y el descanso." },
+              { label: "Adultos mayores", tip: "Manzanilla con miel + estiramientos suaves. Refuerza la movilidad articular y el sueño al mismo tiempo." },
+              { label: "Jóvenes / estudiantes", tip: "Infusión de melisa + revisión breve de logros del día. Combate la ansiedad académica cerrando mentalmente la jornada." },
+            ].map((p, i) => (
+              <div key={i} className="flex gap-3 items-start">
+                <div className="mt-0.5 h-5 w-5 rounded-full bg-primary/15 flex items-center justify-center shrink-0">
+                  <ArrowRight className="h-3 w-3 text-primary" />
+                </div>
+                <span className="text-sm text-muted-foreground">
+                  <strong className="text-foreground">{p.label}:</strong> {p.tip}
+                </span>
+              </div>
+            ))}
+          </div>
+          <p className="text-xs text-muted-foreground mt-4 pt-3 border-t border-border italic">
+            Fuentes: Skinner (1938) · MedlinePlus – Higiene del Sueño · Healthline – Natural Sleep Remedies
+          </p>
+        </div>
+
+        {/* ─ Reforzamiento Negativo ─ */}
+        <div className="flex items-center gap-3 mb-4">
+          <div className="h-9 w-9 rounded-xl gradient-primary flex items-center justify-center shrink-0 shadow-md shadow-primary/20">
+            <span className="text-primary-foreground font-bold text-lg leading-none">−</span>
+          </div>
+          <h4 className="font-display text-lg font-semibold text-foreground">Reforzamiento Negativo</h4>
+          <div className="flex-1 h-px bg-primary/20" />
+        </div>
+        <p className="mb-5 text-muted-foreground leading-relaxed">
+          El <strong className="text-foreground">reforzamiento negativo</strong> no significa castigo; significa <em>eliminar o reducir un estímulo molesto</em> para que una conducta positiva aumente. Si eliminas la causa de tu inquietud antes de dormir, el alivio resultante refuerza el hábito de manera natural.
+        </p>
+        <div className="space-y-3 mb-8">
+          {([
+            { Icon: PhoneOff, color: "text-rose-600 dark:text-rose-400", bg: "bg-rose-500/10", title: "Apagar pantallas 60 minutos antes", desc: "Eliminar la luz azul y la estimulación de redes disminuye el cortisol y el ruido mental. El cuerpo detecta la ausencia del estímulo irritante y responde con una bajada natural de alerta. Usa el modo 'no molestar' como refuerzo." },
+            { Icon: Headphones, color: "text-sky-600 dark:text-sky-400", bg: "bg-sky-500/10", title: "Apps de sonidos y ruido blanco", desc: "Aplicaciones como BetterSleep o Loóna eliminan el silencio incómodo o los ruidos ambientales (tráfico, vecinos) que generan alerta. Al quitar ese estímulo negativo, el sueño llega más rápido, noche tras noche." },
+            { Icon: Wind, color: "text-teal-600 dark:text-teal-400", bg: "bg-teal-500/10", title: "Respiración 4-7-8 para callar la mente", desc: "Los pensamientos rumiantes son el estímulo aversivo más frecuente. La respiración diafragmática (inhala 4s, retén 7s, exhala 8s) activa el sistema parasimpático. Combinada con pasiflora, el efecto calmante se amplifica notablemente." },
+          ] as const).map(({ Icon, color, bg, title, desc }, i) => (
+            <div key={i} className="flex gap-4 p-4 rounded-xl border border-border bg-card hover:border-primary/30 hover:shadow-sm transition-all duration-200 items-start">
+              <div className={`h-10 w-10 rounded-xl ${bg} flex items-center justify-center shrink-0`}>
+                <Icon className={`h-5 w-5 ${color}`} />
+              </div>
+              <div>
+                <h5 className="font-semibold text-foreground mb-1">{title}</h5>
+                <p className="text-sm text-muted-foreground leading-relaxed">{desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* ─ Castigo ─ */}
+        <div className="flex items-center gap-3 mb-4">
+          <div className="h-9 w-9 rounded-xl bg-amber-500/20 flex items-center justify-center shrink-0">
+            <AlertTriangle className="h-5 w-5 text-amber-600 dark:text-amber-400" />
+          </div>
+          <h4 className="font-display text-lg font-semibold text-foreground">Castigo (uso moderado)</h4>
+          <div className="flex-1 h-px bg-amber-400/30" />
+        </div>
+        <p className="mb-5 text-muted-foreground leading-relaxed">
+          En el condicionamiento operante, el <strong className="text-foreground">castigo</strong> reduce una conducta indeseada al añadir una consecuencia negativa o retirar algo agradable. Aplicado al sueño, se trata de restricciones suaves y autoimpuestas, nunca punitivas. Siempre úsalo en combinación con las estrategias positivas anteriores.
+        </p>
+        <div className="space-y-3 mb-5">
+          {([
+            { Icon: Ban, color: "text-amber-700 dark:text-amber-400", bg: "bg-amber-500/10", title: "Restricción de cafeína después del mediodía", desc: "La cafeína tarde (café, té negro, energizantes) fragmenta el sueño. La regla 'no cafeína tras las 14:00' interrumpe el hábito de forma gradual y sin confrontación." },
+            { Icon: MonitorX, color: "text-amber-700 dark:text-amber-400", bg: "bg-amber-500/10", title: "Sin pantallas como consecuencia del desvelo", desc: "Revisar el celular al despertar a medianoche es recompensar el desvelo con estimulación. Restringir pantallas tras despertares nocturnos acelera el retorno al sueño sin reforzar el ciclo." },
+            { Icon: Clock, color: "text-amber-700 dark:text-amber-400", bg: "bg-amber-500/10", title: "Restricción de siestas largas después de las 15h", desc: "Una siesta mayor de 30 minutos después de las 15:00 reduce la presión de sueño nocturna (adenosina acumulada). Limitarla motiva un descanso nocturno más consolidado." },
+          ] as const).map(({ Icon, color, bg, title, desc }, i) => (
+            <div key={i} className="flex gap-4 p-4 rounded-xl border border-amber-200/60 dark:border-amber-800/40 bg-amber-50/60 dark:bg-amber-900/10 hover:border-amber-300/80 transition-colors items-start">
+              <div className={`h-10 w-10 rounded-xl ${bg} flex items-center justify-center shrink-0`}>
+                <Icon className={`h-5 w-5 ${color}`} />
+              </div>
+              <div>
+                <h5 className="font-semibold text-foreground mb-1">{title}</h5>
+                <p className="text-sm text-muted-foreground leading-relaxed">{desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Advertencia */}
+        <div className="flex gap-3 p-4 rounded-xl bg-amber-50/80 dark:bg-amber-900/15 border border-amber-200/60 dark:border-amber-800/40 mb-8 items-start">
+          <div className="h-8 w-8 rounded-lg bg-amber-500/15 flex items-center justify-center shrink-0 mt-0.5">
+            <AlertTriangle className="h-4 w-4 text-amber-600 dark:text-amber-400" />
+          </div>
+          <div>
+            <h5 className="font-semibold text-amber-800 dark:text-amber-300 mb-1">Advertencia de uso</h5>
+            <p className="text-sm text-amber-700/80 dark:text-amber-400/80">
+              El castigo como herramienta aislada no es efectivo a largo plazo y puede generar ansiedad adicional. Úsalo siempre como complemento —no como base— de las estrategias de reforzamiento positivo y negativo. El objetivo es construir autonomía y bienestar, no restricción.
+            </p>
+          </div>
+        </div>
+
+        {/* ─ CTA ─ */}
+        <div className="relative overflow-hidden p-6 rounded-2xl gradient-primary-soft border border-primary/20 text-center">
+          <div className="absolute inset-0 bg-primary/5 blur-2xl rounded-full" />
+          <div className="relative">
+            <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl gradient-primary shadow-lg shadow-primary/30 mb-4">
+              <Moon className="h-6 w-6 text-primary-foreground" />
+            </div>
+            <p className="text-foreground font-bold text-lg mb-2">¿Listo para aplicarlo esta noche?</p>
+            <p className="text-sm text-muted-foreground mb-5 max-w-lg mx-auto">
+              Personaliza tu rutina, comparte tus avances en el foro o descarga la <strong className="text-foreground">Guía Gratuita de 7 Días</strong> con rituales específicos de <em>reforzamiento insomnio natural</em>, <em>hábitos de sueño positivos</em> y plantas adaptadas a tu perfil.
+            </p>
+            <a
+              href="#contacto"
+              className="star-btn inline-flex items-center gap-2 px-7 py-3 rounded-full gradient-primary text-primary-foreground font-semibold text-sm shadow-lg shadow-primary/25 hover:opacity-90 hover:scale-105 transition-all duration-200"
+            >
+              <Moon className="h-4 w-4" />
+              Contáctanos y obtén 7 días gratis
+              <ArrowRight className="h-4 w-4" />
+              {[1, 2, 3, 4, 5, 6].map(n => (
+                <span key={n} className={`star-${n}`}>
+                  <svg xmlns="http://www.w3.org/2000/svg" xmlSpace="preserve" version="1.1"
+                    style={{ shapeRendering: 'geometricPrecision', textRendering: 'geometricPrecision', imageRendering: 'optimizeQuality', fillRule: 'evenodd', clipRule: 'evenodd' } as unknown as React.CSSProperties}
+                    viewBox="0 0 784.11 815.53">
+                    <path d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z" />
+                  </svg>
+                </span>
+              ))}
+            </a>
+            <div className="flex items-center justify-center gap-4 mt-5 flex-wrap">
+              <a href="https://medlineplus.gov/spanish/insomnia.html" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-primary transition-colors">
+                <ExternalLink className="h-3 w-3" /> MedlinePlus – Insomnio
+              </a>
+              <span className="text-muted-foreground/40 text-xs">·</span>
+              <a href="https://www.healthline.com/health/es/remedios-naturales-para-dormir" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-primary transition-colors">
+                <ExternalLink className="h-3 w-3" /> Healthline – Remedios naturales
+              </a>
+              <span className="text-muted-foreground/40 text-xs">·</span>
+              <span className="text-xs text-muted-foreground">Skinner, B. F. (1938)</span>
+            </div>
+          </div>
         </div>
       </>
     ),
@@ -401,7 +591,7 @@ const WikiSection = () => {
             <div
               key={topic.id}
               className={
-                topic.id === "insomnio" || topic.id === "estrategias"
+                topic.id === "insomnio" || topic.id === "estrategias" || topic.id === "condicionamiento"
                   ? "md:col-span-2"
                   : ""
               }
