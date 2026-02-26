@@ -7,6 +7,7 @@ import ForumSection from "@/components/ForumSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import SplashScreen from "@/components/SplashScreen";
+
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const Index = () => {
@@ -16,6 +17,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       {showSplash && <SplashScreen onComplete={() => setShowSplash(false)} />}
+
       <Navbar />
       <main>
         <HeroSection />

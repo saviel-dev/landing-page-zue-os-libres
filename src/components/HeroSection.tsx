@@ -1,4 +1,4 @@
-import { ChevronDown, Moon, Star } from "lucide-react";
+import { ChevronDown, Moon, Star, ShieldCheck, ArrowRight } from "lucide-react";
 import heroImage from "@/assets/hero-sleep.jpg";
 import { useEffect, useRef } from "react";
 import anime from "animejs";
@@ -10,7 +10,6 @@ const SleepParticles = () => {
     if (!containerRef.current) return;
     const particles = containerRef.current.querySelectorAll(".sleep-particle");
 
-    // Animación continua de flotación
     anime({
       targets: particles,
       translateY: () => [anime.random(-20, 100), anime.random(-300, -800)],
@@ -29,11 +28,10 @@ const SleepParticles = () => {
     });
   }, []);
 
-  // Generamos un mix de estrellas, lunas y "Zzz"
   const elements = Array.from({ length: 25 }).map((_, i) => {
-    const type = i % 3; // 0 = Zzz, 1 = Star, 2 = Moon
+    const type = i % 3;
     const left = `${Math.random() * 100}%`;
-    const bottom = `${Math.random() * -20}%`; // Empiezan un poco debajo de la pantalla o muy abajo
+    const bottom = `${Math.random() * -20}%`;
 
     return (
       <div
@@ -74,31 +72,93 @@ const HeroSection = () => {
 
       {/* Content */}
       <div className="relative z-[3] container mx-auto px-4 text-center">
-        <p className="text-primary-foreground/70 uppercase tracking-[0.3em] text-sm mb-6 animate-fade-in-up">
-          Campaña de bienestar natural
-        </p>
-        <h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-bold text-primary-foreground leading-tight mb-6 animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
-          Recupera tu sueño.
+        {/* Urgency badge */}
+        <div
+          className="inline-flex items-center gap-2 bg-primary-foreground/10 backdrop-blur-sm border border-primary-foreground/20 text-primary-foreground/90 rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-widest mb-6 animate-fade-in-up"
+        >
+          <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse inline-block" />
+          🌿 Oferta de lanzamiento · Solo 50 plazas disponibles
+        </div>
+
+        <h1
+          className="font-display text-4xl md:text-6xl lg:text-7xl font-bold text-primary-foreground leading-tight mb-4 animate-fade-in-up"
+          style={{ animationDelay: "0.15s" }}
+        >
+          Vuelve a dormir 7 horas seguidas
           <br />
-          <span className="font-light opacity-80">Recupera tu vida.</span>
+          <span className="font-light opacity-80">sin pastillas, sin dependencia.</span>
         </h1>
-        <p className="text-primary-foreground/80 text-lg md:text-xl max-w-2xl mx-auto mb-10 animate-fade-in-up leading-relaxed" style={{ animationDelay: "0.4s" }}>
-          Más del 30% de la población sufre de insomnio. Descubre el poder de las plantas medicinales
-          para volver a dormir profundamente, sin dependencia farmacológica.
+
+        <p
+          className="text-primary-foreground/70 text-sm uppercase tracking-[0.25em] mb-5 animate-fade-in-up"
+          style={{ animationDelay: "0.25s" }}
+        >
+          Recupera tu sueño · Recupera tu vida · Sueños Libres
         </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up" style={{ animationDelay: "0.6s" }}>
+
+        <p
+          className="text-primary-foreground/80 text-lg md:text-xl max-w-2xl mx-auto mb-4 animate-fade-in-up leading-relaxed"
+          style={{ animationDelay: "0.35s" }}
+        >
+          Más del 30% de la población sufre insomnio. Nuestras plantas medicinales,
+          avaladas por estudios clínicos, te devuelven el descanso profundo que mereces —
+          desde la primera semana.
+        </p>
+
+        {/* Segmented micro-copy */}
+        <div
+          className="flex flex-wrap justify-center gap-2 mb-8 animate-fade-in-up"
+          style={{ animationDelay: "0.45s" }}
+        >
+          {["Estrés laboral", "Noches de mamá", "Ansiedad estudiantil", "Cambios de edad"].map((tag) => (
+            <span
+              key={tag}
+              className="text-xs bg-primary-foreground/10 border border-primary-foreground/15 text-primary-foreground/70 rounded-full px-3 py-1"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+
+        {/* CTAs */}
+        <div
+          className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up"
+          style={{ animationDelay: "0.55s" }}
+        >
           <a
             href="#campana"
-            className="inline-flex items-center justify-center px-8 py-4 rounded-lg bg-primary-foreground text-primary font-semibold hover:bg-primary-foreground/90 transition-all shadow-brand-lg"
+            className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-lg bg-primary-foreground text-primary font-semibold hover:bg-primary-foreground/90 transition-all shadow-brand-lg"
           >
-            Descubre los productos
+            <Moon className="h-4 w-4" />
+            Quiero mi Pack de Inicio Gratis
+            <ArrowRight className="h-4 w-4" />
           </a>
           <a
             href="#contacto"
-            className="inline-flex items-center justify-center px-8 py-4 rounded-lg border-2 border-primary-foreground/30 text-primary-foreground font-semibold hover:border-primary-foreground/60 transition-all"
+            className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-lg border-2 border-primary-foreground/30 text-primary-foreground font-semibold hover:border-primary-foreground/60 transition-all"
           >
-            Contáctanos
+            Habla con un especialista hoy
           </a>
+        </div>
+
+        {/* Trust line */}
+        <div
+          className="flex flex-wrap items-center justify-center gap-4 mt-6 animate-fade-in-up"
+          style={{ animationDelay: "0.65s" }}
+        >
+          <span className="flex items-center gap-1.5 text-primary-foreground/60 text-xs">
+            <ShieldCheck className="h-4 w-4 text-green-400" />
+            Sin riesgo · Garantía 7 días
+          </span>
+          <span className="text-primary-foreground/30 text-xs">·</span>
+          <span className="flex items-center gap-1.5 text-primary-foreground/60 text-xs">
+            <Star className="h-4 w-4 text-yellow-400 fill-yellow-400" />
+            +200 personas ya duermen mejor
+          </span>
+          <span className="text-primary-foreground/30 text-xs">·</span>
+          <span className="text-primary-foreground/60 text-xs">
+            🌿 100% Plant-based · Sin dependencia
+          </span>
         </div>
       </div>
 

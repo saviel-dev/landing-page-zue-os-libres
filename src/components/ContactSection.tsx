@@ -415,22 +415,22 @@ export default function ContactSection() {
           <div className="text-center mb-14 reveal">
             <div className="cf-badge">
               <Sparkles style={{ width: "0.8rem", height: "0.8rem" }} />
-              Contáctanos
+              Primera consulta gratuita
             </div>
             <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mb-4">
-              Estamos para{" "}
+              Da el primer paso hacia{" "}
               <span style={{
                 background: "linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary)/0.6))",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text",
               }}>
-                ayudarte
+                tus noches de descanso
               </span>
             </h2>
             <p className="text-muted-foreground max-w-lg mx-auto leading-relaxed">
-              ¿Tienes preguntas sobre nuestros productos naturales? Nuestro equipo de especialistas
-              está listo para orientarte en tu camino hacia un mejor descanso.
+              Cuéntanos tu caso: un especialista te orientará <strong>sin costo</strong> y te recomendará
+              las plantas más adecuadas para tu tipo de insomnio. Respuesta garantizada en menos de 24 horas.
             </p>
           </div>
 
@@ -440,9 +440,10 @@ export default function ContactSection() {
               <div className="cf-card-accent" />
 
               {/* Card header */}
-              <h3 className="cf-card-title">Envíanos un mensaje</h3>
+              <h3 className="cf-card-title">Tu primera consulta es gratuita 🌿</h3>
               <p className="cf-card-sub">
-                Responderemos a tu consulta en menos de 24 horas. Todos los campos son obligatorios.
+                Cuéntanos qué tipo de insomnio tienes y recibirás una recomendación personalizada.
+                Respuesta en &lt;24h · Sin compromiso de compra.
               </p>
               <div className="cf-divider" />
 
@@ -499,13 +500,13 @@ export default function ContactSection() {
                 ) : (
                   <>
                     <Send style={{ width: "1.1rem", height: "1.1rem" }} />
-                    Enviar mensaje
+                    Quiero mi consulta gratuita →
                   </>
                 )}
               </button>
 
               <p className="cf-hint">
-                Tu información está protegida · <span>Respuesta en &lt;24h</span>
+                🔒 Tu información está protegida · <span>Respuesta garantizada en &lt;24h</span> · Sin compromiso
               </p>
             </div>
           </form>

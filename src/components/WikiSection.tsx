@@ -1,11 +1,74 @@
 import { useState, useEffect, useRef } from "react";
-import { BookOpen, Brain, Moon, Leaf, AlertTriangle, Smartphone, Baby, ChevronDown, ExternalLink, Zap, Coffee, PenLine, Award, Music2, Lightbulb, PhoneOff, Headphones, Wind, Ban, MonitorX, Clock, ArrowRight } from "lucide-react";
+import { BookOpen, Brain, Moon, Leaf, AlertTriangle, Smartphone, Baby, ChevronDown, ExternalLink, Zap, Coffee, PenLine, Award, Music2, Lightbulb, PhoneOff, Headphones, Wind, Ban, MonitorX, Clock, ArrowRight, Send, CheckCircle } from "lucide-react";
 import anime from "animejs";
 import insomioImg from "../assets/wiki media/Insomio.png";
 import combatirInsomioImg from "../assets/wiki media/combatir insomio.png";
 import insomioEstresImg from "../assets/wiki media/insomio por estres.png";
 import appsSuenoImg from "../assets/wiki media/apps para el sueño.png";
 import insomioEdadImg from "../assets/wiki media/insomio segun la edad.png";
+
+// ─── Lead Magnet inline form ───────────────────────────────────────────────
+const LeadMagnetForm = () => {
+  const [submitted, setSubmitted] = useState(false);
+  const [form, setForm] = useState({ name: "", email: "" });
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!form.name.trim() || !form.email.trim()) return;
+    try {
+      await fetch("https://formspree.io/f/mreaoeew", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({ ...form, subject: "Solicitud Guía 7 Pasos del Sueño" }),
+      });
+    } catch {
+      // Silent — still show success
+    }
+    setSubmitted(true);
+  };
+
+  if (submitted) {
+    return (
+      <div className="flex flex-col items-center justify-center gap-3 p-6 rounded-xl bg-card border border-primary/20 text-center h-full min-h-[180px]">
+        <CheckCircle className="h-10 w-10 text-primary" />
+        <p className="font-bold text-foreground">¡Listo! Revisa tu correo 📬</p>
+        <p className="text-xs text-muted-foreground">La guía está de camino. Sin spam, prometido.</p>
+      </div>
+    );
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="flex flex-col gap-3 p-5 rounded-xl bg-card border border-border shadow-sm">
+      <p className="text-sm font-semibold text-foreground">Recibe la guía gratis →</p>
+      <input
+        type="text"
+        placeholder="Tu nombre"
+        value={form.name}
+        onChange={(e) => setForm({ ...form, name: e.target.value })}
+        required
+        className="w-full rounded-lg border border-border bg-background px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30"
+      />
+      <input
+        type="email"
+        placeholder="Tu correo electrónico"
+        value={form.email}
+        onChange={(e) => setForm({ ...form, email: e.target.value })}
+        required
+        className="w-full rounded-lg border border-border bg-background px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30"
+      />
+      <button
+        type="submit"
+        className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg gradient-primary text-primary-foreground font-semibold text-sm hover:opacity-90 transition-opacity"
+      >
+        <Send className="h-4 w-4" />
+        Enviarme la guía
+      </button>
+      <p className="text-[11px] text-muted-foreground text-center">
+        🔒 Sin spam. Podés darte de baja cuando quieras.
+      </p>
+    </form>
+  );
+};
 
 interface WikiTopic {
   id: string;
@@ -130,7 +193,7 @@ const topics: WikiTopic[] = [
         </p>
         <div className="grid sm:grid-cols-2 gap-3 mb-5">
           {([
-            { Icon: Coffee, color: "text-emerald-600 dark:text-emerald-400", bg: "bg-emerald-500/10", title: "Ritual de infusión nocturna", desc: "Prepara manzanilla o melisa 30 min antes de acostarte. El olor y el calor actúan como señal sensorial que le indica al cerebro que es hora de relajarse. La repetición fortalece la asociación y reduce el tiempo para conciliar el sueño." },
+            { Icon: Coffee, color: "text-emerald-600 dark:text-emerald-400", bg: "bg-emerald-500/10", title: "Infusión nocturna antes de dormir", desc: "Prepara manzanilla o melisa 30 min antes de acostarte. El olor y el calor actúan como señal sensorial que le indica al cerebro que es hora de relajarse. La repetición fortalece la asociación y reduce el tiempo para conciliar el sueño." },
             { Icon: PenLine, color: "text-violet-600 dark:text-violet-400", bg: "bg-violet-500/10", title: "Diario de gratitud + valeriana", desc: "Escribe 3 cosas positivas del día mientras tomas tu infusión de valeriana. El estado emocional positivo combinado con el efecto sedante de la planta refuerza ambas conductas simultáneamente." },
             { Icon: Award, color: "text-primary", bg: "bg-primary/10", title: "Pasiflora como recompensa de rutina", desc: "Reserva la pasiflora para los días en que completas toda tu rutina: estiramientos, apagar pantallas y lectura. La asocias con el 'premio' al esfuerzo, motivando mantener la rutina completa." },
             { Icon: Music2, color: "text-sky-600 dark:text-sky-400", bg: "bg-sky-500/10", title: "Playlist + aromaterapia de lavanda", desc: "Pon siempre la misma playlist junto con difusor de lavanda. Tu cerebro aprende a conectar esa combinación sensorial con el inicio del sueño — un ancla poderosa para hábitos de sueño positivos." },
@@ -247,35 +310,43 @@ const topics: WikiTopic[] = [
           </div>
         </div>
 
-        {/* ─ CTA ─ */}
-        <div className="relative overflow-hidden p-6 rounded-2xl gradient-primary-soft border border-primary/20 text-center">
-          <div className="absolute inset-0 bg-primary/5 blur-2xl rounded-full" />
-          <div className="relative">
-            <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl gradient-primary shadow-lg shadow-primary/30 mb-4">
-              <Moon className="h-6 w-6 text-primary-foreground" />
+        {/* ─ Lead Magnet CTA ─ */}
+        <div className="relative overflow-hidden rounded-2xl gradient-primary-soft border border-primary/20">
+          <div className="absolute inset-0 bg-primary/5 blur-2xl rounded-full pointer-events-none" />
+          <div className="relative p-6 md:p-8">
+            <div className="flex flex-col md:flex-row gap-8 items-start">
+              {/* Left: offer */}
+              <div className="flex-1">
+                <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl gradient-primary shadow-lg shadow-primary/30 mb-4">
+                  <Moon className="h-6 w-6 text-primary-foreground" />
+                </div>
+                <p className="text-xs font-bold text-primary uppercase tracking-widest mb-2">🎁 Lead Magnet Gratuito</p>
+                <h4 className="font-display text-xl font-bold text-foreground mb-2">
+                  Guía: 7 Pasos de Higiene del Sueño
+                </h4>
+                <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+                  Recibe en tu correo el protocolo de 7 noches que usan nuestros especialistas. Sin spam,
+                  sin compromiso — solo información real que funciona.
+                </p>
+                <ul className="space-y-1.5 text-sm text-muted-foreground">
+                  {[
+                    "Rutina pre-sueño de 30 min paso a paso",
+                    "Qué planta usar según tu tipo de insomnio",
+                    "Los 3 errores más comunes que sabotean tu descanso",
+                  ].map((item) => (
+                    <li key={item} className="flex items-center gap-2">
+                      <ArrowRight className="h-3.5 w-3.5 text-primary shrink-0" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              {/* Right: inline form */}
+              <div className="w-full md:w-72 shrink-0">
+                <LeadMagnetForm />
+              </div>
             </div>
-            <p className="text-foreground font-bold text-lg mb-2">¿Listo para aplicarlo esta noche?</p>
-            <p className="text-sm text-muted-foreground mb-5 max-w-lg mx-auto">
-              Personaliza tu rutina, comparte tus avances en el foro o descarga la <strong className="text-foreground">Guía Gratuita de 7 Días</strong> con rituales específicos de <em>reforzamiento insomnio natural</em>, <em>hábitos de sueño positivos</em> y plantas adaptadas a tu perfil.
-            </p>
-            <a
-              href="#contacto"
-              className="star-btn inline-flex items-center gap-2 px-7 py-3 rounded-full gradient-primary text-primary-foreground font-semibold text-sm shadow-lg shadow-primary/25 hover:opacity-90 hover:scale-105 transition-all duration-200"
-            >
-              <Moon className="h-4 w-4" />
-              Contáctanos y obtén 7 días gratis
-              <ArrowRight className="h-4 w-4" />
-              {[1, 2, 3, 4, 5, 6].map(n => (
-                <span key={n} className={`star-${n}`}>
-                  <svg xmlns="http://www.w3.org/2000/svg" xmlSpace="preserve" version="1.1"
-                    style={{ shapeRendering: 'geometricPrecision', textRendering: 'geometricPrecision', imageRendering: 'optimizeQuality', fillRule: 'evenodd', clipRule: 'evenodd' } as unknown as React.CSSProperties}
-                    viewBox="0 0 784.11 815.53">
-                    <path d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z" />
-                  </svg>
-                </span>
-              ))}
-            </a>
-            <div className="flex items-center justify-center gap-4 mt-5 flex-wrap">
+            <div className="flex items-center justify-center gap-4 mt-6 pt-4 border-t border-primary/15 flex-wrap">
               <a href="https://medlineplus.gov/spanish/insomnia.html" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-primary transition-colors">
                 <ExternalLink className="h-3 w-3" /> MedlinePlus – Insomnio
               </a>
